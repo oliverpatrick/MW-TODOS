@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Input from "../../../components/form/Input";
-import Button from "../../../components/ui/Button/Button";
+import Input from "../../../../components/form/Input";
+import Button from "../../../../components/ui/Button/Button";
 
 interface ITodoFormProps {
   addTodo: (todo: string) => void;

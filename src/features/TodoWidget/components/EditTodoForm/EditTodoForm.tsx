@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ITodoItem } from "../TodoWidget";
-import Input from "../../../components/form/Input";
-import Button from "../../../components/ui/Button/Button";
+import Input from "../../../../components/form/Input";
+import Button from "../../../../components/ui/Button/Button";
 
 interface IEditFormProps {
   todo: ITodoItem;

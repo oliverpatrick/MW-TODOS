@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { ITodo } from "../../models/Todo";
 import { TodoForm } from "./TodoForm/TodoForm";
 import { EditTodoForm } from "./EditTodoForm/EditTodoForm";
 import Todo from "./Todo/Todo";
-import { v4 as uuidv4 } from "uuid";
 import { TodoFilter } from "./TodoFilter/TodoFilter";
-import { useFetch } from "../../hooks/useFetch";
+import { createTodo } from "../services/createTodo";
+import { editTodoApi, toggleCompleteApi } from "../services/putTodo";
+import { deleteTodoApi } from "../services/deleteTodo";
+import { ITodo } from "../../../models/Todo";
+import { useFetch } from "../../../hooks/useFetch";
 
 export interface ITodoItem extends ITodo {
   isEditing: boolean;
@@ -44,48 +46,21 @@ export const TodoWidget = () => {
 
   // separate fetch requests into separate promises in a new folder.
   const addTodo = async (todo: string) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/todos/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: uuidv4(),
-        text: todo,
-        completed: false,
-        createdAt: new Date().toISOString(),
-      }),
-    });
-    const data = await response.json();
+    const data = await createTodo(todo);
     setTodos([...todos, data]);
   };
 
   const deleteTodo = async (id: string) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
-      method: "DELETE",
-    });
+    await deleteTodoApi(id);
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const toggleComplete = async (id: string) => {
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if (todoToUpdate) {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/todos/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...todoToUpdate,
-            completed: !todoToUpdate.completed,
-          }),
-        }
-      );
-      const data = await response.json();
+      const data = await toggleCompleteApi(id, !todoToUpdate.completed);
 
-      if (response.ok) {
+      if (data) {
         setTodos(todos.map((todo) => (todo.id === id ? data : todo)));
       }
     }
@@ -99,22 +74,8 @@ export const TodoWidget = () => {
     );
   };
 
-  const editTask = async (text: string, id: string) => {
-    const todoToUpdate = todos.find((todo) => todo.id === id);
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/todos/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...todoToUpdate,
-          text,
-        }),
-      }
-    );
-    const data = await response.json();
+  const editText = async (text: string, id: string) => {
+    const data = await editTodoApi(id, text);
     setTodos(todos.map((todo) => (todo.id === id ? data : todo)));
   };
 
@@ -136,7 +97,7 @@ export const TodoWidget = () => {
       <TodoFilter filter={filter} setFilter={setFilter} />
       {filteredTodos.map((todo) =>
         todo.isEditing ? (
-          <EditTodoForm key={todo.id} editTodo={editTask} todo={todo} />
+          <EditTodoForm key={todo.id} editTodo={editText} todo={todo} />
         ) : (
           <Todo
             key={todo.id}

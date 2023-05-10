@@ -51,7 +51,9 @@ const Input: React.FC<InputProps> = ({
           {required && <span className="text-red-500 text-xs"> *</span>}
         </label>
       )}
-      <div className={label ? "mt-2" : ""}>
+      <div
+      // className={label ? "mt-2" : ""}
+      >
         <input
           id={id}
           type={type}

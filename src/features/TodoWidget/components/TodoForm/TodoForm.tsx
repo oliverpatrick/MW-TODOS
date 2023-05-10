@@ -32,8 +32,7 @@ export const TodoForm = ({ addTodo }: ITodoFormProps) => {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="outline-none"
-          placeholder="What is the task today?"
+          label="What is the task today?"
         />
         <Button secondary type="submit">
           Add Task

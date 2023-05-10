@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ *
+ * @param todo returns todo text
+ * @returns
+ */
 export async function createTodo(todo: string) {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/todos/`, {
     method: "POST",

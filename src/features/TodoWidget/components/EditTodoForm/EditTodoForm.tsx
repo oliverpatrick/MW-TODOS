@@ -8,6 +8,12 @@ interface IEditFormProps {
   editTodo: (edit: string, todo: string) => void;
 }
 
+/**
+ *
+ * @param editTodo edit todo
+ * @param todo returns todo object
+ * @returns
+ */
 export const EditTodoForm = ({ editTodo, todo }: IEditFormProps) => {
   const [value, setValue] = useState(todo.text);
 
@@ -27,7 +33,7 @@ export const EditTodoForm = ({ editTodo, todo }: IEditFormProps) => {
           onChange={(e) => setValue(e.target.value)}
           className="w-full"
           placeholder="Update task"
-          maxWidth
+          fullWidth
         />
         <Button type="submit">Confirm</Button>
       </form>

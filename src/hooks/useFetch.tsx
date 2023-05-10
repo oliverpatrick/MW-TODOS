@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export function useFetch<T>(url: string) {
+/**
+ *
+ * @param query returns query endpoint for the api
+ * @returns
+ */
+export function useFetch<T>(query: string) {
   const [loading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>();
   const [data, setData] = useState<T | null>(null);
@@ -11,7 +16,7 @@ export function useFetch<T>(url: string) {
 
     async function fetchData() {
       try {
-        const response = await fetch(url);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}${query}`);
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -27,7 +32,7 @@ export function useFetch<T>(url: string) {
     // return () => {
     //   controller.abort();
     // };
-  }, [url]);
+  }, [query]);
 
   return { loading, error, data };
 }

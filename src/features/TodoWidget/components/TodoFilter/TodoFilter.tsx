@@ -5,6 +5,13 @@ interface ITodoFilterProps {
   filter: string;
   setFilter: Dispatch<SetStateAction<string>>;
 }
+
+/**
+ *
+ * @param filter the current filter used
+ * @param setFilter used to set the filter
+ * @returns
+ */
 export const TodoFilter: React.FC<ITodoFilterProps> = ({
   filter,
   setFilter,

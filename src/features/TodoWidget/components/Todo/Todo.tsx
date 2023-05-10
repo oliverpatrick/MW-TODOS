@@ -7,6 +7,14 @@ interface ITodoProps {
   toggleComplete: (id: string) => void;
 }
 
+/**
+ *
+ * @param todo returns the to todo object
+ * @param deleteTodo deletes todo
+ * @param editTodo edits todo
+ * @param toggleComplete toggles todo status
+ * @returns
+ */
 const Todo = ({ todo, deleteTodo, editTodo, toggleComplete }: ITodoProps) => {
   return (
     <div className="w-full flex justify-between border border-b-0 p-1">

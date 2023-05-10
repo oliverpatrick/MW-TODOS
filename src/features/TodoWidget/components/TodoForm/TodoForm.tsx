@@ -6,6 +6,11 @@ interface ITodoFormProps {
   addTodo: (todo: string) => void;
 }
 
+/**
+ *
+ * @param addTodo addTodo function
+ * @returns
+ */
 export const TodoForm = ({ addTodo }: ITodoFormProps) => {
   const [value, setValue] = useState("");
 
@@ -30,7 +35,9 @@ export const TodoForm = ({ addTodo }: ITodoFormProps) => {
           className="outline-none"
           placeholder="What is the task today?"
         />
-        <Button type="submit">Add Task</Button>
+        <Button secondary type="submit">
+          Add Task
+        </Button>
       </form>
     </div>
   );

@@ -13,11 +13,13 @@ export interface ITodoItem extends ITodo {
   isEditing: boolean;
 }
 
+/**
+ *
+ * @returns TodoWidget
+ */
 export const TodoWidget = () => {
   const [filter, setFilter] = useState<string>("all");
-  const { data, loading, error } = useFetch<ITodo[]>(
-    `${import.meta.env.VITE_API_URL}/todos`
-  );
+  const { data, loading, error } = useFetch<ITodo[]>("/todos");
   const [todos, setTodos] = useState<ITodoItem[] | []>([]);
 
   useEffect(() => {

@@ -7,23 +7,35 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   required?: boolean;
   disabled?: boolean;
-  maxWidth?: boolean;
+  fullWidth?: boolean;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ *
+ * @param label label tag for the input component
+ * @param id html id to match the label and input
+ * @param required required status for the input
+ * @param type type of input e.g text | password | number etc
+ * @param disabled boolean to toggle disabled input
+ * @param maxWidth boolean to check if the input should take all available space
+ * @param value value of the input field
+ * @param onChange onChange functionality for the input
+ * @returns
+ */
 const Input: React.FC<InputProps> = ({
   label,
   id,
   required,
   type = "text",
   disabled,
-  maxWidth,
+  fullWidth,
   value,
   onChange,
 }) => {
   return (
-    <div className={maxWidth ? "w-full" : ""}>
+    <div className={fullWidth ? "w-full" : ""}>
       {label && (
         <label
           htmlFor={id}

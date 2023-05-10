@@ -12,6 +12,18 @@ interface IButtonProps {
   selected?: boolean;
 }
 
+/**
+ *
+ * @param type type of button e.g button | submit etc
+ * @param fullWidth html id to match the label and input
+ * @param children react components to be rendered within the button
+ * @param onClick onClick functionality to the button
+ * @param secondary secondary button variant
+ * @param danger danger styling
+ * @param disabled boolean to toggle disabled functionality
+ * @param selected boolean to specify if the button is active
+ * @returns
+ */
 const Button: React.FC<IButtonProps> = ({
   type = "button",
   fullWidth,
